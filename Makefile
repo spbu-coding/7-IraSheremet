@@ -25,15 +25,16 @@ $(BUILD_DIR): $(SOURCES)
 	@mkdir -p $@
 
 check: $(TEST_LOGS)
-	@check = 0 ;
-	for test in $(TESTS_IN:$(TEST_DIR)/%.in=%) ; do \
+	@check = 0 ; \
+	for test in $(TESTS_IN:$(TEST_DIR)/%.in=%) ; \
+	do \
   		if [ "$$(cat $(BUILD_DIR)/$$test.logs)" = "1" ] ; then \
         			echo test $$success ; \
         			check = 1 ; \
         		else \
         			echo test $$fail ; \
         		fi \
-        	done ; \
+          done ; \
     exit $$check
 
 $(TEST_LOGS): $(BUILD_DIR)/%.logs :$(BUILD_DIR)/%.out $(TEST_DIR)/%.out
